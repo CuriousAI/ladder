@@ -239,6 +239,12 @@ def setup_data(p, test_set=False):
 
     train_set = dataset_class("train")
 
+    # Make sure the MNIST data is in right format
+    if p.dataset == 'mnist':
+        d = train_set.data_sources[train_set.sources.index('features')]
+        assert numpy.all(d <= 1.0) and numpy.all(d >= 0.0), \
+            'Make sure data is in float format and in range 0 to 1'
+
     # Take all indices and permutate them
     all_ind = numpy.arange(train_set.num_examples)
     if p.get('dseed'):
