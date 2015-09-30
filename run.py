@@ -590,7 +590,7 @@ if __name__ == "__main__":
         a("--denoising-cost-x", help="Weight of the denoising cost.",
           type=str, default=default([(0.,)]), nargs='+',
           action=funcs([tuple, to_float, chop]))
-        a("--decoder-spec", help="List of decoding function types",
+        a("--decoder-spec", help="List of decoding function types", nargs='+',
           type=str, default=default(['sig']), action=funcs([tuple, chop, rep]))
         a("--zestbn", type=str, default=default(['bugfix']), nargs='+',
           choices=['bugfix', 'no'], help="How to do zest bn")
