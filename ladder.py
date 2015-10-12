@@ -230,7 +230,7 @@ class LadderAE():
             if z_est is not None:
                 # Denoising cost
                 if z_clean_s:
-                    z_est_norm = (z_est - z_clean_m) / z_clean_s
+                    z_est_norm = (z_est - z_clean_m) / T.sqrt(z_clean_s + np.float32(1e-10))
                 else:
                     z_est_norm = z_est
 
