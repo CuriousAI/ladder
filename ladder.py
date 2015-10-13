@@ -561,7 +561,7 @@ class LadderAE():
             z_est = nonlin(z_lat, 'lat') if u is None else \
                 nonlin(z_lat, 'lat') + nonlin(u, 'ver', False)
 
-        elif g_type in ['comparison_g5']:
+        elif g_type in ['comparison_g5', 'gauss']:
             # Gaussian assumption on z: (z - mu) * v + mu
             if u is None:
                 b1 = bi(0., 'b1')
