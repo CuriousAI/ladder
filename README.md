@@ -4,14 +4,14 @@ M Berglund, and T Raiko.
 
 #### Required libraries
 ##### Install Theano, Blocks Stable 0.0.1, Fuel Stable 0.0.1
-Refer to [Blocks installation instructions](http://blocks.readthedocs.org/en/latest/setup.html) for
+Refer to the [Blocks installation instructions](http://blocks.readthedocs.org/en/latest/setup.html) for
 details but use tag v0.0.1 instead. Something along:
 ```
 pip install git+git://github.com/mila-udem/blocks.git@v0.0.1
 pip install git+git://github.com/mila-udem/fuel.git@v0.0.1
 ```
-Fuel comes with the Blocks, but you need to download and convert the datasets.
-Refer to Fuel documentation.
+Fuel comes with Blocks, but you need to download and convert the datasets.
+Refer to the Fuel documentation.
 ```
 fuel-download mnist
 fuel-convert mnist --dtype float32
@@ -23,9 +23,9 @@ fuel-convert cifar10
 
 The following commands train the models with seed 1. The reported numbers in the paper are averages over
 several random seeds. These commands use all the training samples for training (`--unlabeled-samples 60000`)
-and none is used for validation. This results in a lot of NaNs being printed during the trainining, since
-validation statistics are not available. If you want to observe the validation error and costs during the training,
-use `--unlabeled-samples 50000`.
+and none are used for validation. This results in a lot of NaNs being printed during the trainining, since
+the validation statistics are not available. If you want to observe the validation error and costs during the
+training, use `--unlabeled-samples 50000`.
 
 ##### Evaluating models with testset
 After training a model, you can infer the results on a test set by performing the `evaluate` command.
