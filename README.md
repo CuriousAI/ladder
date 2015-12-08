@@ -27,12 +27,6 @@ and none are used for validation. This results in a lot of NaNs being printed du
 the validation statistics are not available. If you want to observe the validation error and costs during the
 training, use `--unlabeled-samples 50000`.
 
-##### Evaluating models with testset
-After training a model, you can infer the results on a test set by performing the `evaluate` command.
-An example use after training a model:
-```
-./run.py evaluate results/mnist_all_bottom0
-```
 
 ##### MNIST all labels
 ```
@@ -92,4 +86,11 @@ run.py train --encoder-layers convf:32:5:1:1-maxpool:2:2-convv:64:3:1:1-convf:64
 ./run.py train --encoder-layers convv:96:3:1:1-convf:96:3:1:1-convf:96:3:1:1-maxpool:2:2-convv:192:3:1:1-convf:192:3:1:1-convv:192:3:1:1-maxpool:2:2-convv:192:3:1:1-convv:192:1:1:1-convv:10:1:1:1-globalmeanpool:0 --decoder-spec 0-0-0-0-0-0-0-0-0-0-0-0-gauss --dataset cifar10 --act leakyrelu --denoising-cost-x 0,0,0,0,0,0,0,0,0,0,0,0,4.0 --num-epochs 70 --lrate-decay 0.86 --seed 1 --whiten-zca 3072 --contrast-norm 55 --top-c False --labeled-samples 4000 --unlabeled-samples 50000 -- cifar_4k_gamma
 # Conv-Large, supervised baseline. Overfits easily, so keep training short.
 ./run.py train --encoder-layers convv:96:3:1:1-convf:96:3:1:1-convf:96:3:1:1-maxpool:2:2-convv:192:3:1:1-convf:192:3:1:1-convv:192:3:1:1-maxpool:2:2-convv:192:3:1:1-convv:192:1:1:1-convv:10:1:1:1-globalmeanpool:0 --decoder-spec 0-0-0-0-0-0-0-0-0-0-0-0-0 --dataset cifar10 --act leakyrelu --denoising-cost-x 0,0,0,0,0,0,0,0,0,0,0,0,0 --num-epochs 20 --lrate-decay 0.5 --seed 1 --whiten-zca 3072 --contrast-norm 55 --top-c False --labeled-samples 4000 --unlabeled-samples 50000 -- cifar_4k_baseline
+```
+
+##### Evaluating models with testset
+After training a model, you can infer the results on a test set by performing the `evaluate` command.
+An example use after training a model:
+```
+./run.py evaluate results/mnist_all_bottom0
 ```
