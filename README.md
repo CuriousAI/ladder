@@ -3,7 +3,7 @@ This repository contains source code for the experiments in a paper titled
 M Berglund, and T Raiko.
 
 #### Required libraries
-##### Install Theano, Blocks Stable 0.0.1, Fuel Stable 0.0.1
+##### Install Theano, Blocks Stable 0.2, Fuel Stable 0.2
 Refer to the [Blocks installation instructions](http://blocks.readthedocs.org/en/latest/setup.html) for
 details but use tag v0.0.1 instead. Something along:
 ```
@@ -11,13 +11,18 @@ pip install git+git://github.com/mila-udem/blocks.git@v0.0.1
 pip install git+git://github.com/mila-udem/fuel.git@v0.0.1
 ```
 Fuel comes with Blocks, but you need to download and convert the datasets.
-Refer to the Fuel documentation.
+Refer to the Fuel documentation. One might need to rename the converted files.
 ```
 fuel-download mnist
 fuel-convert mnist --dtype float32
 fuel-download cifar10
 fuel-convert cifar10
 ```
+##### Alternatively, one can use the environment.yml file that is provided in this repo to create an conda environment.
+1. First install anaconda from https://www.continuum.io/downloads. Then,
+2. `conda env create -f environment.yml`
+3. `source activate ladder`
+4. The environment should be good to go!
 
 #### Models in the paper
 
