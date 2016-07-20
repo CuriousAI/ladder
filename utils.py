@@ -95,8 +95,8 @@ class SaveParams(SimpleExtension):
         self.params = params
         self.to_save = {}
         self.best_value = None
-        self.add_condition('after_training', self.save)
-        self.add_condition('on_interrupt', self.save)
+        self.add_condition(['after_training'])
+        self.add_condition(['on_interrupt'])
 
     def save(self, which_callback, *args):
         if self.var_name is None:

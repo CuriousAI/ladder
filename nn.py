@@ -12,12 +12,12 @@ from blocks.extensions.monitoring import (DataStreamMonitoring,
 from blocks.filter import VariableFilter
 from blocks.graph import ComputationGraph
 from blocks.monitoring.evaluators import DatasetEvaluator
-from blocks.roles import AuxiliaryRole
+from blocks.roles import VariableRole
 
 logger = logging.getLogger('main.nn')
 
 
-class BnParamRole(AuxiliaryRole):
+class BnParamRole(VariableRole):
     pass
 
 # Batch normalization parameters that have to be replaced when testing
@@ -261,15 +261,15 @@ class LRDecay(SimpleExtension):
         self.decay_first = decay_first
         self.decay_last = decay_last
         self.lr = lr
-        self.lr_init = lr.get_value()
+        self.lr_init = np.float32(lr)
 
     def do(self, which_callback, *args):
         self.iter += 1
         if self.iter > self.decay_first:
             ratio = 1.0 * (self.decay_last - self.iter)
             ratio = np.maximum(0, ratio / (self.decay_last - self.decay_first))
-            self.lr.set_value(np.float32(ratio * self.lr_init))
-        logger.info("Iter %d, lr %f" % (self.iter, self.lr.get_value()))
+            self.lr = np.float32(ratio * self.lr_init)
+        logger.info("Iter %d, lr %f" % (self.iter, self.lr))
 
 
 def global_meanpool_2d(x, num_filters):

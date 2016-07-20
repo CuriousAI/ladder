@@ -237,7 +237,7 @@ def setup_data(p, test_set=False):
     if p.get('unlabeled_samples') is not None:
         training_set_size = p.unlabeled_samples
 
-    train_set = dataset_class("train")
+    train_set = dataset_class(["train"])
 
     # Make sure the MNIST data is in right format
     if p.dataset == 'mnist':
@@ -276,7 +276,7 @@ def setup_data(p, test_set=False):
     cnorm = ContrastNorm(p.contrast_norm) if p.contrast_norm != 0 else None
 
     def get_data(d, i):
-        data = d.get_data(request=i)[d.sources.index('features')]
+        data = d.get_data(request=list(i))[d.sources.index('features')]
         # Fuel provides Cifar in uint8, convert to float32
         data = numpy.require(data, dtype=numpy.float32)
         return data if cnorm is None else cnorm.apply(data)
@@ -419,7 +419,7 @@ def train(cli_params):
         'No batch norm params in graph - the graph has been cut?'
 
     training_algorithm = GradientDescent(
-        cost=ladder.costs.total, params=all_params,
+        cost=ladder.costs.total, parameters=all_params,
         step_rule=Adam(learning_rate=ladder.lr))
     # In addition to actual training, also do BN variable approximations
     training_algorithm.add_updates(bn_updates)

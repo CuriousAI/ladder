@@ -143,7 +143,7 @@ class LadderAE():
         layers = self.layers
         self.layer_dims = {0: input_dim}
 
-        self.lr = self.shared(self.default_lr, 'learning_rate', role=None)
+        self.lr = self.default_lr
 
         self.costs = costs = AttributeDict()
         self.costs.denois = AttributeDict()

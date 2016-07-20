@@ -1,9 +1,7 @@
 name: ladder
 dependencies:
-- cython=0.23.4
 - hdf5=1.8.15.1=2
 - h5py=2.5.0=np110py27_4
-- ipython=4.0.3=py27_0
 - matplotlib=1.5.1=np110py27_0
 - nomkl=1.0
 - openblas=0.2.14
@@ -12,17 +10,8 @@ dependencies:
 - pytables=3.2.2=np110py27_0
 - python=2.7.11=0
 - scipy=0.17.0=np110py27_nomkl_0
-- notebook=4.0.1=py27_0
-- ipython-notebook=4.0.4=py27_0
-- pymongo=3.0.3=py27_0
-- futures=3.0.3=py27_0
-- blosc=1.2.3
-- pil=1.1.7=py27_2
-- scikit-learn=0.17.1
 - pip
 - pip:
   - git+git://github.com/Theano/Theano.git@rel-0.8.2
   - git+git://github.com/mila-udem/fuel.git@0.2.0
   - git+git://github.com/mila-udem/blocks.git@0.2
-  - configargparse==0.10.0
-  - urllib3==1.14
