@@ -289,3 +289,8 @@ def maxpool_2d(z, in_dim, poolsize, poolstride):
     output_size = tuple(DownsampleFactorMax.out_shape(in_dim, poolsize,
                                                       st=poolstride))
     return z, output_size
+
+def softmax_n(x, axis=-1):
+    e_x = tensor.exp(x - x.max(axis=axis, keepdims=True))
+    out = e_x / e_x.sum(axis=axis, keepdims=True)
+    return out

@@ -16,7 +16,7 @@ from blocks.graph import add_annotation, Annotation
 from blocks.roles import add_role, PARAMETER, WEIGHT, BIAS
 
 from utils import shared_param, AttributeDict
-from nn import maxpool_2d, global_meanpool_2d, BNPARAM
+from nn import maxpool_2d, global_meanpool_2d, BNPARAM, softmax_n
 
 logger = logging.getLogger('main.model')
 floatX = theano.config.floatX
@@ -288,7 +288,7 @@ class LadderAE():
             'linear': lambda x: x,
             'softplus': lambda x: T.log(1. + T.exp(x)),
             'sigmoid': lambda x: T.nnet.sigmoid(x),
-            'softmax': lambda x: T.nnet.softmax(x),
+            'softmax': lambda x: softmax_n(x),
         }.get(act_name)
         assert act, 'unknown act %s' % act_name
         if act_name == 'softmax':
