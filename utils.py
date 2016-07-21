@@ -95,8 +95,8 @@ class SaveParams(SimpleExtension):
         self.params = params
         self.to_save = {}
         self.best_value = None
-        self.add_condition(['after_training'])
-        self.add_condition(['on_interrupt'])
+        self.add_condition(['after_training'], self.save)
+        self.add_condition(['on_interrupt'], self.save)
 
     def save(self, which_callback, *args):
         if self.var_name is None:
@@ -133,7 +133,7 @@ class SaveLog(SimpleExtension):
         self.show = show if show is not None else []
 
     def do(self, which_callback, *args):
-        df = self.main_loop.log.to_dataframe()
+        df = DataFrame.from_dict(self.main_loop.log, orient='index')
         df.to_hdf(os.path.join(self.dir, 'log'), 'log', mode='w',
                   complevel=5, complib='blosc')
 

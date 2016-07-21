@@ -7,6 +7,7 @@ import subprocess
 from argparse import ArgumentParser, Action
 from collections import OrderedDict
 import sys
+from pandas import DataFrame
 
 import numpy
 import time
@@ -264,7 +265,7 @@ def setup_data(p, test_set=False):
 
     # Only touch test data if requested
     if test_set:
-        d.test = dataset_class("test")
+        d.test = dataset_class(["test"])
         d.test_ind = numpy.arange(d.test.num_examples)
 
     # Setup optional whitening, only used for Cifar-10
@@ -500,7 +501,7 @@ def train(cli_params):
     main_loop.run()
 
     # Get results
-    df = main_loop.log.to_dataframe()
+    df = DataFrame.from_dict(main_loop.log, orient='index')
     col = 'valid_final_error_rate_clean'
     logger.info('%s %g' % (col, df[col].iloc[-1]))
 
