@@ -153,8 +153,11 @@ class LadderAE():
 
         top = len(layers) - 1
 
-        N = input_labeled.shape[0]
-        self.join = lambda l, u: T.concatenate([l, u], axis=0)
+        if input_labeled is None:
+            N = 0
+        else:
+            N = input_labeled.shape[0]
+        self.join = lambda l, u: T.concatenate([l, u], axis=0) if l else u
         self.labeled = lambda x: x[:N] if x is not None else x
         self.unlabeled = lambda x: x[N:] if x is not None else x
         self.split_lu = lambda x: (self.labeled(x), self.unlabeled(x))
@@ -329,7 +332,6 @@ class LadderAE():
         return var.reshape(orig_shape)
 
     def f(self, h, in_dim, spec, num, act_f, path_name, noise_std=0):
-        assert path_name in ['clean', 'corr']
         # Generates identifiers used for referencing shared variables.
         # E.g. clean and corrupted encoders will end up using the same
         # variable name and hence sharing parameters
@@ -587,7 +589,33 @@ class LadderAE():
                 v = a6 * T.nnet.sigmoid(a7 * u + a8) + a9 * u + a10
 
                 z_est = (z_lat - mu) * v + mu
+        elif 'gauss_stable_v' in g_type:
+            # Gaussian assumption on z: (z - mu) * v + mu
+            if u is None:
+                b1 = bi(0., 'b1')
+                w1 = wi(1., 'w1')
+                z_est = w1 * z_lat + b1
+            elif z_lat is None:
+                b1 = bi(0., 'b1')
+                w1 = wi(1., 'w1')
+                z_est = w1 * u + b1
+            else:
+                a1 = bi(0., 'a1')
+                a2 = wi(1., 'a2')
+                a3 = bi(0., 'a3')
+                a4 = bi(0., 'a4')
+                a5 = bi(0., 'a5')
+                a6 = bi(0., 'a6')
+                a7 = wi(1., 'a7')
+                a8 = bi(0., 'a8')
+                a9 = bi(0., 'a9')
+                a10 = bi(0., 'a10')
 
+                mu = a1 * T.nnet.sigmoid(a2 * u + a3) + a4 * u + a5
+                v = a6 * T.nnet.sigmoid(a7 * u + a8) + a9 * u + a10
+                v = T.nnet.sigmoid(v)
+
+                z_est = (z_lat - mu) * v + mu
         else:
             raise NotImplementedError("unknown g type: %s" % str(g_type))
 
