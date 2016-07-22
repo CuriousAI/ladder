@@ -5,10 +5,10 @@ M Berglund, and T Raiko.
 #### Required libraries
 ##### Install Theano, Blocks Stable 0.2, Fuel Stable 0.2
 Refer to the [Blocks installation instructions](http://blocks.readthedocs.org/en/latest/setup.html) for
-details but use tag v0.0.1 instead. Something along:
+details but use tag v0.2 instead. Something along:
 ```
-pip install git+git://github.com/mila-udem/blocks.git@v0.0.1
-pip install git+git://github.com/mila-udem/fuel.git@v0.0.1
+pip install git+git://github.com/mila-udem/blocks.git@v0.2
+pip install git+git://github.com/mila-udem/fuel.git@v0.2.0
 ```
 Fuel comes with Blocks, but you need to download and convert the datasets.
 Refer to the Fuel documentation. One might need to rename the converted files.
