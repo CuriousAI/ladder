@@ -4,7 +4,7 @@ import logging
 import scipy
 import numpy as np
 from theano import tensor
-from theano.tensor.signal.downsample import max_pool_2d, DownsampleFactorMax
+from theano.tensor.signal.pool import pool_2d, Pool
 
 from blocks.extensions import SimpleExtension
 from blocks.extensions.monitoring import (DataStreamMonitoring,
@@ -285,9 +285,8 @@ def pool_2d(x, mode="average", ws=(2, 2), stride=(2, 2)):
 
 
 def maxpool_2d(z, in_dim, poolsize, poolstride):
-    z = max_pool_2d(z, ds=poolsize, st=poolstride)
-    output_size = tuple(DownsampleFactorMax.out_shape(in_dim, poolsize,
-                                                      st=poolstride))
+    z = pool_2d(z, ds=poolsize, st=poolstride)
+    output_size = tuple(Pool.out_shape(in_dim, poolsize, st=poolstride))
     return z, output_size
 
 def softmax_n(x, axis=-1):
